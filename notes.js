@@ -7,3 +7,4 @@ const getNote = function () {
 module.exports = {
     getNote: getNote
 }
+
