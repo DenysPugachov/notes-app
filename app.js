@@ -1,7 +1,7 @@
 // const chalk = require("chalk")
 // const yargs = require("yargs")
 const yargs = require('yargs')
-const { getNote } = require("./notes.js")
+const notes = require("./notes.js")
 
 
 
@@ -12,17 +12,19 @@ yargs
     builder: {
         title: {
             describe: "Note title",
+            alias: "-t", 
             demandOption: true,
             type: "string"
         },
         body: {
             describe: "Note body",
+            alias: "-b",
             demandOption: true,
             type: "string",
         }
     },
     handler: function (argv) {
-        console.log("Title:", argv.title, "\nBody:", argv.body)
+        notes.addNote(argv.title, argv.body)
     }
 })
 
