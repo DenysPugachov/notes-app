@@ -43,10 +43,15 @@ const addNote = function (title, body) {
 
 const removeNote = function (title) {
     const notesArr = loadNotes()
-    const newNotesArr = notesArr.filter(n => {
+    const notesToKeep = notesArr.filter(n => {
         return n.title != title
     })
-    saveNotes(newNotesArr)
+    if (notesToKeep.length < notesArr.length) {
+        saveNotes(notesToKeep)
+        console.log(`Note title: "${title}" was removed.`)
+    } else {
+        console.log(`Note with title: "${title}" not exist.`)
+    }
 }
 
 

@@ -1,10 +1,5 @@
-// const chalk = require("chalk")
-// const yargs = require("yargs")
-const { alias } = require('yargs')
 const yargs = require('yargs')
 const notes = require("./notes.js")
-
-
 
 yargs
     .command({
