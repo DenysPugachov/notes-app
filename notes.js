@@ -1,6 +1,5 @@
-const { notStrictEqual } = require("assert")
 const fs = require("fs")
-
+const chalk = require("chalk")
 
 const loadNotes = function () {
     try {
@@ -35,9 +34,9 @@ const addNote = function (title, body) {
         //no duplicates
         notesArr.push({ title: title, body: body })
         saveNotes(notesArr)
-        console.log(`New note with title: "${title}" was successfully added!`)
+        console.log(chalk.green("New note with title:", chalk.bgGreen.bold(title), "was successfully added!"))
     } else {
-        console.log(`"${title}" is already taken. Please choose another title.`)
+        console.log(chalk.red("Title:", chalk.bgRed.bold(title), `is already taken. Please choose another title.`))
     }
 }
 
@@ -48,9 +47,9 @@ const removeNote = function (title) {
     })
     if (notesToKeep.length < notesArr.length) {
         saveNotes(notesToKeep)
-        console.log(`Note title: "${title}" was removed.`)
+        console.log(chalk.red("Note title:", chalk.bgRed(title), "was removed."))
     } else {
-        console.log(`Note with title: "${title}" not exist.`)
+        console.log(chalk.bgRed.bold(`Note with title: "${title}" not exist.`))
     }
 }
 

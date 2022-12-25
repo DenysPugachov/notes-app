@@ -6,5 +6,9 @@
     {
         "title": "New title",
         "body": "some body text"
+    },
+    {
+        "title": "Test3",
+        "body": "text"
     }
 ]
