@@ -23,6 +23,14 @@ const getNote = () => {
     console.log("Showing the note")
 }
 
+const listAllNotes = () => {
+    const notes = loadNotes()
+    if (notes.length === 0) { console.log(chalk.magenta("There is not notes to display.")); return }
+    notes.forEach(n => {
+        console.log(`${chalk.bold.underline(n.title)}: \n ${chalk.magenta.italic(n.body)} \n`)
+    })
+}
+
 
 const addNote = (title, body) => {
     const notesArr = loadNotes()
@@ -54,5 +62,6 @@ module.exports = {
     getNote: getNote,
     addNote: addNote,
     removeNote: removeNote,
+    listAllNotes: listAllNotes
 }
 
