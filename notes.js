@@ -18,14 +18,11 @@ const saveNotes = notesArr => {
     fs.writeFileSync("notesDB.json", notesStr)
 }
 
-
-const getNote = () => {
-    console.log("Showing the note")
-}
-
 const listAllNotes = () => {
     const notes = loadNotes()
-    if (notes.length === 0) { console.log(chalk.magenta("There is not notes to display.")); return }
+    if (notes.length === 0) {
+        console.log(chalk.magenta("There is not notes to display.")); return
+    }
     notes.forEach(n => {
         console.log(`${chalk.bold.underline(n.title)}: \n ${chalk.magenta.italic(n.body)} \n`)
     })
@@ -35,10 +32,14 @@ const listAllNotes = () => {
 const addNote = (title, body) => {
     const notesArr = loadNotes()
     //check for duplicate titles in arr
-    const duplicateNotesArr = notesArr.filter(n => n.title === title)
-    if (duplicateNotesArr.length === 0) {
-        //no duplicates
-        notesArr.push({ title: title, body: body })
+    const duplicateNote = notesArr.find(n => n.title === title)
+
+    // duplicates not found === undefined
+    if (!duplicateNote) {
+        notesArr.push({
+            title: title,
+            body: body
+        })
         saveNotes(notesArr)
         console.log("New note with title:", chalk.bgGreen.bold(title), chalk.green("was successfully added!"))
     } else {
@@ -57,11 +58,21 @@ const removeNote = title => {
     }
 }
 
+const readNote = title => {
+    const notesArr = loadNotes()
+    const note = notesArr.find(n => n.title === title)
 
+    if (note) {
+        console.log(`${chalk.bold.underline(note.title)}: \n ${chalk.magenta.italic(note.body)} \n`)
+    } else {
+        console.log(chalk.bgRed.bold(`Note with title: "${title}" not exist.`))
+    }
+}
+  
 module.exports = {
-    getNote: getNote,
     addNote: addNote,
     removeNote: removeNote,
-    listAllNotes: listAllNotes
+    listAllNotes: listAllNotes,
+    readNote: readNote,
 }
 

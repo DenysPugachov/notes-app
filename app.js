@@ -1,4 +1,5 @@
 
+const { string } = require('yargs')
 const yargs = require('yargs')
 const notes = require("./notes.js")
 
@@ -54,8 +55,15 @@ yargs
     .command({
         command: "read",
         describe: "Read the note",
-        handler() {
-            console.log("Reading a note.")
+        builder: {
+            title: {
+                describe: "Note title",
+                demandOption: true,
+                type: string,
+            }
+        },
+        handler(argv) {
+            notes.readNote(argv.title)
         }
     })
 
