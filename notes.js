@@ -1,7 +1,7 @@
 const fs = require("fs")
 const chalk = require("chalk")
 
-const loadNotes = function () {
+const loadNotes = () => {
     try {
         const buffer = fs.readFileSync("notesDB.json")
         const notesObj = JSON.parse(buffer)
@@ -13,41 +13,37 @@ const loadNotes = function () {
 }
 
 
-const saveNotes = function (notesArr) {
+const saveNotes = notesArr => {
     const notesStr = JSON.stringify(notesArr)
     fs.writeFileSync("notesDB.json", notesStr)
 }
 
 
-const getNote = function () {
+const getNote = () => {
     console.log("Showing the note")
 }
 
 
-const addNote = function (title, body) {
+const addNote = (title, body) => {
     const notesArr = loadNotes()
     //check for duplicate titles in arr
-    const duplicateNotesArr = notesArr.filter(n => {
-        return n.title === title
-    })
+    const duplicateNotesArr = notesArr.filter(n => n.title === title)
     if (duplicateNotesArr.length === 0) {
         //no duplicates
         notesArr.push({ title: title, body: body })
         saveNotes(notesArr)
-        console.log(chalk.green("New note with title:", chalk.bgGreen.bold(title), "was successfully added!"))
+        console.log("New note with title:", chalk.bgGreen.bold(title), chalk.green("was successfully added!"))
     } else {
         console.log(chalk.red("Title:", chalk.bgRed.bold(title), `is already taken. Please choose another title.`))
     }
 }
 
-const removeNote = function (title) {
+const removeNote = title => {
     const notesArr = loadNotes()
-    const notesToKeep = notesArr.filter(n => {
-        return n.title != title
-    })
+    const notesToKeep = notesArr.filter(n => n.title != title)
     if (notesToKeep.length < notesArr.length) {
         saveNotes(notesToKeep)
-        console.log(chalk.red("Note title:", chalk.bgRed(title), "was removed."))
+        console.log("Note title:", chalk.bgRed(title), chalk.red("was removed."))
     } else {
         console.log(chalk.bgRed.bold(`Note with title: "${title}" not exist.`))
     }
