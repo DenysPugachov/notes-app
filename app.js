@@ -1,5 +1,3 @@
-
-const { string } = require('yargs')
 const yargs = require('yargs')
 const notes = require("./notes.js")
 
@@ -59,7 +57,7 @@ yargs
             title: {
                 describe: "Note title",
                 demandOption: true,
-                type: string,
+                type: "string",
             }
         },
         handler(argv) {

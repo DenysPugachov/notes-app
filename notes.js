@@ -2,6 +2,9 @@ const fs = require("fs")
 const chalk = require("chalk")
 
 const loadNotes = () => {
+    
+    debugger 
+
     try {
         const buffer = fs.readFileSync("notesDB.json")
         const notesObj = JSON.parse(buffer)
@@ -68,7 +71,7 @@ const readNote = title => {
         console.log(chalk.bgRed.bold(`Note with title: "${title}" not exist.`))
     }
 }
-  
+   
 module.exports = {
     addNote: addNote,
     removeNote: removeNote,
